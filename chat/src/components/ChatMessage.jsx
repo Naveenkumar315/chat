@@ -1,6 +1,8 @@
 // src/components/ChatMessage.jsx
 import PersonIcon from '@mui/icons-material/Person';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+
 
 const ChatMessage = ({ message, sender, isUser }) => {
   return (
@@ -18,7 +20,14 @@ const ChatMessage = ({ message, sender, isUser }) => {
             : 'bg-white text-gray-900 rounded-bl-none mr-2'
         }`}
       >
-        <p>{message}</p>
+        <p>{message} {!isUser && (
+            // <InfoOutlinedIcon
+            //   fontSize="inherit"
+            //   className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer"
+            //   titleAccess="Bot Info"
+            // />
+             <PersonIcon className="text-blue-600" fontSize="small" />
+          )}</p>
         <span className="text-[10px] text-right block mt-1 opacity-60">{sender}</span>
       </div>
 
