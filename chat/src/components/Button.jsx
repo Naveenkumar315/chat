@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
+// import classNames from "classnames";
 
 const Button = ({
   children,
@@ -11,7 +11,6 @@ const Button = ({
   disabled = false,
   className = "",
 }) => {
-
   const baseStyles =
     "font-semibold rounded-md focus:outline-none transition-all duration-200 cursor-pointer";
 
@@ -35,13 +34,13 @@ const Button = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={classNames(
-        baseStyles,
-        variants[variant],
-        sizes[size],
-        disabledStyles,
-        className
-      )}
+      // className={classNames(
+      //   baseStyles,
+      //   variants[variant],
+      //   sizes[size],
+      //   disabledStyles,
+      //   className
+      // )}
     >
       {children}
     </button>

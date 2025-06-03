@@ -1,53 +1,35 @@
 import { useState, useRef, useEffect } from "react";
 import { file } from "../file"; // Ensure this path is correct
-// import { useGlobalContext } from "../context/GlobalContext"; // Ensure this path is correct
-
+import { useNavigate } from "react-router-dom";
 const Header = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  // const { setIsLoggedIn } = useGlobalContext(); 
   const dropdownRef = useRef();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-  //       setDropdownOpen(false);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => document.removeEventListener("mousedown", handleClickOutside);
-  // }, []);
-
-  // const handleLogout = () => {
-  //   sessionStorage.removeItem("isLoggedIn");
-  //   setDropdownOpen(false);
-  //   setIsLoggedIn(false)
-  // };
+  const handleLogout = () => {
+    // sessionStorage.removeItem("isLoggedIn");
+    // setDropdownOpen(false);
+    // setIsLoggedIn(false);
+    navigate("/");
+  };
 
   return (
-    <header className="bg-white shadow px-4 py-2 flex items-center justify-between">
-      
-      <div className="text-2xl font-bold text-blue-600">
-        <img src={file.logo} alt="Logo" className="h-8" />
+    <header className="bg-white shadow px-6 py-3 flex items-center justify-between">
+      {/* Left Side: Logo */}
+      <div className="flex items-center">
+        <img src={file.logo} alt="Logo" className="h-8 w-auto" />
       </div>
-        
-      <div className="text-2xl font-bold">Chat</div>
 
-      {/* <div className="relative" ref={dropdownRef}>
-        <button onClick={() => setDropdownOpen((prev) => !prev)}>
-          <UserAvatarFilledAlt size={32} className="text-gray-700 cursor-pointer" />
+      {/* Right Side: Chat + Logout */}
+      <div className="flex items-center space-x-6">
+        <div className="text-lg font-semibold text-gray-800">Chat</div>
+        <button
+          onClick={handleLogout}
+          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 transition"
+        >
+          Logout
         </button>
-
-        {isDropdownOpen && (
-          <div className="absolute right-0 mt-2 w-40 bg-white  rounded shadow-md z-99">
-            <button
-              onClick={handleLogout}
-              className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer text-left"
-            >
-              Logout
-            </button>
-          </div>
-        )}
-      </div> */}
+      </div>
     </header>
   );
 };
