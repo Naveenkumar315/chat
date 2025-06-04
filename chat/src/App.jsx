@@ -13,7 +13,7 @@ const App = () => {
           <Route path="/chat" element={
             <div className="h-screen flex flex-col">
               <Header />
-              <div className="flex w-full flex-1">
+              <div className="flex w-full flex-1 bg-red-300">
                 <ChatBox />
               </div>
             </div>

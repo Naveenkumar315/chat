@@ -1,5 +1,5 @@
 import React from "react";
-import { file } from "../file"; 
+import { file } from "../file";
 import { useNavigate } from "react-router-dom";
 const WelcomePage = () => {
   const navigate = useNavigate();
@@ -10,16 +10,16 @@ const WelcomePage = () => {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gradient-to-br from-blue-100 to-purple-200">
-      <div className="text-center p-8 rounded-2xl bg-white shadow-xl">
+      <div className="text-center w-[450px] h-[300px]  p-8 rounded-2xl bg-white shadow-xl">
         <div className="flex justify-center">
-                <img src={file.logo} alt="Logo" className="h-8 w-auto" />
-              </div>
-        <h1 className="text-3xl font-bold mb-6 text-gray-800">
-          Welcome to Chat
+          <img src={file.logo} alt="Logo" className="h-8 w-auto" />
+        </div>
+        <h1 className="text-2xl font-bold  text-gray-800 mt-4">
+          Welcome to CA Genie  your Automated Virtual <br/> Assistant
         </h1>
         <button
           onClick={handleStart}
-          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300"
+          className="px-6 py-3 bg-blue-600 mt-10 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300"
         >
           Start
         </button>
