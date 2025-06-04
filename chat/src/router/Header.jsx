@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { file } from "../file"; // Ensure this path is correct
+import { useNavigate } from "react-router-dom";
 // import { useGlobalContext } from "../context/GlobalContext"; // Ensure this path is correct
 
 const Header = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   // const { setIsLoggedIn } = useGlobalContext(); 
   const dropdownRef = useRef();
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   const handleClickOutside = (event) => {
@@ -17,11 +19,9 @@ const Header = () => {
   //   return () => document.removeEventListener("mousedown", handleClickOutside);
   // }, []);
 
-  // const handleLogout = () => {
-  //   sessionStorage.removeItem("isLoggedIn");
-  //   setDropdownOpen(false);
-  //   setIsLoggedIn(false)
-  // };
+  const handleLogout = () => {
+    navigate("/");
+  };
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-white shadow px-4 py-2 flex items-center justify-between">
@@ -32,22 +32,19 @@ const Header = () => {
       </div>
 
 
-      {/* <div className="relative" ref={dropdownRef}>
-        <button onClick={() => setDropdownOpen((prev) => !prev)}>
+      <div className="relative" ref={dropdownRef}>
+        {/* <button onClick={() => setDropdownOpen((prev) => !prev)}>
           <UserAvatarFilledAlt size={32} className="text-gray-700 cursor-pointer" />
-        </button>
+        </button> */}
 
-        {isDropdownOpen && (
-          <div className="absolute right-0 mt-2 w-40 bg-white  rounded shadow-md z-99">
-            <button
-              onClick={handleLogout}
-              className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer text-left"
-            >
-              Logout
-            </button>
-          </div>
-        )}
-      </div> */}
+        <button
+          onClick={handleLogout}
+          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 transition"
+        >
+          Logout
+        </button>
+      </div>
+
     </header>
   );
 };

@@ -1,23 +1,27 @@
-import { useState } from 'react'
+import { useState } from "react";
 import Header from "./router/Header";
-import ChatBox from './components/ChatBox'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
+import ChatBox from "./components/ChatBox";
+import WelcomePage from "./components/WelcomePage";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+const App = () => {
   return (
     <>
-      <div className="h-screen flex flex-col">
-        <Header />
-        <div className='w-[50%] mx-auto'>
-          <ChatBox />
-        </div>
-        <div className="flex flex-1">
-        </div>
-      </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<WelcomePage />} />
+          <Route path="/chat" element={
+            <div className="h-screen flex flex-col">
+              <Header />
+              <div className="flex w-full flex-1">
+                <ChatBox />
+              </div>
+            </div>
+          } />
+        </Routes>
+      </Router>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
