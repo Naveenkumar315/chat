@@ -2,11 +2,18 @@
 import ChatMessage from './ChatMessage';
 import { useState, useRef, useEffect } from 'react';
 import SendIcon from '@mui/icons-material/Send';
-// import axios from 'axios';
+import axios from 'axios';
+
+const assistantNames = [
+  "Alex", "Jamie", "Taylor", "Jordan", "Riley",
+  "Morgan", "Casey", "Drew", "Sam", "Cameron"
+];
+
+const randomName = assistantNames[Math.floor(Math.random() * assistantNames.length)];
 
 const ChatBox = () => {
     const [messages, setMessages] = useState([
-        { message: "Hi, I am Naveen your Office Pal. How can i help today?", sender: "Chat AI", isUser: false, sources: '', timing: "" },
+        { message: `Hi, I am ${randomName} your Office Pal. How can i help today?`, sender: "Chat AI", isUser: false, sources: '', timing: "" },
         // { message: "What's the interest rate for home loans?", sender: "You", isUser: true, sources: '', timing: ""  },
     ]);
 
@@ -32,24 +39,25 @@ const ChatBox = () => {
                 question: input
             });
 
-            //             let response = {"data":  {
-            //     "answer": "The HR onboarding policy outlines the process for initiating the onboarding of a new employee, including generating a notification email, notifying IT and relevant departments, raising the New Asset Form (NAF) for IT requirements, and initiating the onboarding process in Zoho. Additionally, it includes conducting an orientation program to introduce the new employee to the organization's culture, policies, and work ethics.",
-            //     "sources": [
-            //         {
-            //             "file": "C:\\Users\\LDNA40004\\Documents\\chatbot\\ChatBOT\\SOP\\SOP - Onboarding & Offboarding v2.pdf",
-            //             "page": "2"
-            //         },
-            //         {
-            //             "file": "C:\\Users\\LDNA40004\\Documents\\chatbot\\ChatBOT\\SOP\\SOP - Onboarding & Offboarding v2.pdf",
-            //             "page": "1"
+            // let response = {
+            //     "data": {
+            //         "answer": "The HR onboarding policy outlines the process for initiating the onboarding of a new employee, including generating a notification email, notifying IT and relevant departments, raising the New Asset Form (NAF) for IT requirements, and initiating the onboarding process in Zoho. Additionally, it includes conducting an orientation program to introduce the new employee to the organization's culture, policies, and work ethics.",
+            //         "sources": [
+            //             {
+            //                 "file": "C:\\Users\\LDNA40004\\Documents\\chatbot\\ChatBOT\\SOP\\SOP - Onboarding & Offboarding v2.pdf",
+            //                 "page": "2"
+            //             },
+            //             {
+            //                 "file": "C:\\Users\\LDNA40004\\Documents\\chatbot\\ChatBOT\\SOP\\SOP - Onboarding & Offboarding v2.pdf",
+            //                 "page": "1"
+            //             },
+            //         ],
+            //         "timing": {
+            //             "embedding_retrieval": 0.17,
+            //             "llm_response": 2.38,
+            //             "total": 2.55
             //         }
-            //     ],
-            //     "timing": {
-            //         "embedding_retrieval": 0.17,
-            //         "llm_response": 2.38,
-            //         "total": 2.55
             //     }
-            // }
             // }
 
             const botReply = response?.data?.answer || "Sorry, I couldn't understand that.";

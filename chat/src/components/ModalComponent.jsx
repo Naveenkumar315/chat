@@ -26,29 +26,32 @@ const ModalComponent = ({ open, setOpen, sources, timing }) => {
     >
       <Box sx={style}>
         <div>
-          {Array.isArray(sources) && sources?.length > 0 && (
-            <>
-              <p className="font-bold mb-1">Sources</p>
-              <ul className="list-disc pl-5 text-sm">
+          <div className="overflow-y-auto max-h-[300px]">
+            {Array.isArray(sources) && sources?.length > 0 && (
+              <>
+                <p className="font-bold mb-1">Sources</p>
                 {sources.map((src, index) => (
-                  <li key={index}>
-                    {src?.file || 'Unnamed Source'}
-                  </li>
+                  <div
+                    key={index}
+                    className="border border-blue-200 rounded-lg p-2 bg-blue-50 shadow-sm mb-2"
+                  >
+                    <p><span className="font-medium">File Name:</span> {src?.file || 'Unnamed Source'}</p>
+                    <p><span className="font-medium">Page No:</span> {src?.page || 'Unknown Page'}</p>
+                  </div>
                 ))}
-              </ul>
-            </>
-          )}
+              </>
+            )}
+          </div>
+          <br />
+          <div>
+            <p className="font-bold mb-1">Timing</p>
+            <ul className="list-disc pl-5 text-sm">
+              <li>Embedding Retrieval : {timing?.embedding_retrieval}</li>
+              <li>LLM Response : {timing?.llm_response}</li>
+              <li>Total : {timing?.total}</li>
+            </ul>
+          </div>
         </div>
-        <br />
-        <div>
-          <p className="font-bold mb-1">Timing</p>
-          <ul className="list-disc pl-5 text-sm">
-            <li>embedding_retrieval : {timing?.embedding_retrieval}</li>
-            <li>llm_response : {timing?.llm_response}</li>
-            <li>total : {timing?.total}</li>
-          </ul>
-        </div>
-
       </Box>
     </Modal>
   );
