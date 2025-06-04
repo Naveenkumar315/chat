@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white shadow px-4 py-2 flex items-center justify-between">
+    <header className="fixed top-0 left-0 h-[50px] w-full z-50 bg-white shadow px-4 py-2 flex items-center justify-between">
 
 
       <div className="text-2xl font-bold text-blue-600">

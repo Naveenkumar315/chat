@@ -32,6 +32,26 @@ const ChatBox = () => {
                 question: input
             });
 
+            //             let response = {"data":  {
+            //     "answer": "The HR onboarding policy outlines the process for initiating the onboarding of a new employee, including generating a notification email, notifying IT and relevant departments, raising the New Asset Form (NAF) for IT requirements, and initiating the onboarding process in Zoho. Additionally, it includes conducting an orientation program to introduce the new employee to the organization's culture, policies, and work ethics.",
+            //     "sources": [
+            //         {
+            //             "file": "C:\\Users\\LDNA40004\\Documents\\chatbot\\ChatBOT\\SOP\\SOP - Onboarding & Offboarding v2.pdf",
+            //             "page": "2"
+            //         },
+            //         {
+            //             "file": "C:\\Users\\LDNA40004\\Documents\\chatbot\\ChatBOT\\SOP\\SOP - Onboarding & Offboarding v2.pdf",
+            //             "page": "1"
+            //         }
+            //     ],
+            //     "timing": {
+            //         "embedding_retrieval": 0.17,
+            //         "llm_response": 2.38,
+            //         "total": 2.55
+            //     }
+            // }
+            // }
+
             const botReply = response?.data?.answer || "Sorry, I couldn't understand that.";
             const sources = response?.data?.sources || "Sorry, I couldn't understand that.";
             const timing = response?.data?.timing || "Sorry, I couldn't understand that.";
@@ -51,12 +71,30 @@ const ChatBox = () => {
         }
 
     };
-
     return (
-        <div className="flex flex-col w-[50%] mx-auto my-[5%] h-[85dvh] bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
+        <div className="flex flex-col w-[50%] mx-auto mt-14 h-[95dvh] bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
+            <div className="h-[60px]">
+                <div className="relative h-[100px] w-full overflow-hidden z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                        <defs>
+                            <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#0099ff" />
+                                <stop offset="100%" stop-color="#00c6ff" />
+                            </linearGradient>
+                        </defs>
+                        <path
+                            fill="url(#waveGradient)"
+                            fill-opacity="1"
+                            d="M0,224L120,213.3C240,203,480,181,720,192C960,203,1200,245,1320,266.7L1440,288L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z">
+                        </path>
+                    </svg>
 
-            <div className="h-[60px] bg-blue-200 ">
-
+                    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-10">
+                        <div className="flex items-center gap-2">
+                            <h1 className="text-white font-bold mt-0 text-xl">Welcome to CA Genie</h1>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="flex-1 p-4 h-[100%] overflow-y-auto">
                 {messages.map((msg, index) => (
@@ -67,6 +105,7 @@ const ChatBox = () => {
                         isUser={msg.isUser}
                         sources={msg.sources}
                         timing={msg.timing}
+                        index={index}
                     />
                 ))}
                 <div ref={messagesEndRef} />
@@ -88,7 +127,7 @@ const ChatBox = () => {
                         <SendIcon fontSize="small" />
                     </button>
                 </div>
-                <div className="text-xs text-gray-500 italic text-right mt-2 pr-10">
+                <div className="text-xs text-gray-500 italic text-right mt-2 pr-14">
                     Powered by <span className="font-semibold text-blue-600">LoanDNA</span>
                 </div>
             </div>
