@@ -14,12 +14,12 @@ const WelcomePage = () => {
         <div className="flex justify-center">
           <img src={file.logo} alt="Logo" className="h-8 w-auto" />
         </div>
-        <h1 className="text-2xl font-bold  text-gray-800 mt-4">
-          Welcome to CA Genie  your Automated Virtual <br/> Assistant
+        <h1 className="text-3xl font-bold  text-gray-800 mt-4">
+          Welcome to CA Genie <br/> <span className="text-base"> Automated Virtual Assistant</span>
         </h1>
         <button
           onClick={handleStart}
-          className="px-6 py-3 bg-blue-600 mt-10 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300"
+          className="px-6 py-3 bg-blue-600 mt-10 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 cursor-pointer"
         >
           Start
         </button>

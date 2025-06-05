@@ -3,17 +3,22 @@ import ChatMessage from './ChatMessage';
 import { useState, useRef, useEffect } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios';
+import SmartToyIcon from "@mui/icons-material/SmartToy";
+import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from "react-router-dom";
+
 
 const assistantNames = [
-  "Alex", "Jamie", "Taylor", "Jordan", "Riley",
-  "Morgan", "Casey", "Drew", "Sam", "Cameron"
+    "Alex", "Jamie", "Taylor", "Jordan", "Riley",
+    "Morgan", "Casey", "Drew", "Sam", "Cameron"
 ];
 
 const randomName = assistantNames[Math.floor(Math.random() * assistantNames.length)];
 
 const ChatBox = () => {
+    const navigate = useNavigate();
     const [messages, setMessages] = useState([
-        { message: `Hi, I am ${randomName} your Office Pal. How can i help today?`, sender: "Chat AI", isUser: false, sources: '', timing: "" },
+        { message: `Hi, I am ${randomName} your Office Pal. How can i help today?`, sender: randomName, isUser: false, sources: '', timing: "" },
         // { message: "What's the interest rate for home loans?", sender: "You", isUser: true, sources: '', timing: ""  },
     ]);
 
@@ -35,7 +40,7 @@ const ChatBox = () => {
         setInput('');
 
         try {
-            const response = await axios.post('http://localhost:3008/query', {
+            const response = await axios.post('http://localhost:8003/query', {
                 question: input
             });
 
@@ -63,7 +68,7 @@ const ChatBox = () => {
             const botReply = response?.data?.answer || "Sorry, I couldn't understand that.";
             const sources = response?.data?.sources || "Sorry, I couldn't understand that.";
             const timing = response?.data?.timing || "Sorry, I couldn't understand that.";
-            setMessages(prev => [...prev, { message: botReply, sender: "Chat AI", isUser: false, sources: sources, timing: timing }]);
+            setMessages(prev => [...prev, { message: botReply, sender: randomName, isUser: false, sources: sources, timing: timing }]);
 
             setTimeout(() => {
                 scrollToBottom();
@@ -73,7 +78,7 @@ const ChatBox = () => {
             console.error('API Error:', error);
             setMessages(prev => [...prev, {
                 message: "Oops! Something went wrong.",
-                sender: "Chat AI",
+                sender: randomName,
                 isUser: false
             }]);
         }
@@ -81,30 +86,36 @@ const ChatBox = () => {
     };
     return (
         <div className="flex flex-col w-[50%] mx-auto mt-14 h-[95dvh] bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
-            <div className="h-[60px]">
-                <div className="relative h-[100px] w-full overflow-hidden z-10">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                        <defs>
-                            <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stop-color="#0099ff" />
-                                <stop offset="100%" stop-color="#00c6ff" />
-                            </linearGradient>
-                        </defs>
-                        <path
-                            fill="url(#waveGradient)"
-                            fill-opacity="1"
-                            d="M0,224L120,213.3C240,203,480,181,720,192C960,203,1200,245,1320,266.7L1440,288L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z">
-                        </path>
-                    </svg>
+            <div className="relative h-[100px] w-full overflow-hidden z-10 bg-blue-500 rounded-br-2xl">
+                {/* Close Button */}
+                <button
+                    onClick={() => navigate("/")}
+                    type="button"
+                    className="absolute top-2 right-2 text-white z-50 cursor-pointer"
+                >
+                    <CloseIcon />
+                </button>
 
-                    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-10">
-                        <div className="flex items-center gap-2">
-                            <h1 className="text-white font-bold mt-0 text-xl">Welcome to CA Genie</h1>
+                {/* Main Content */}
+                <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center z-10 px-4">
+                    {/* Row: Icon + Title */}
+                    <div className="flex items-center gap-2">
+                        <div className="p-2 bg-gray-300 rounded-full shadow">
+                            <SmartToyIcon className="text-gray-700" fontSize="small" />
                         </div>
+                        <h1 className="text-white font-bold text-xl">Welcome to CA Genie</h1>
                     </div>
+
+                    {/* Subtitle below the whole row */}
+                    <p className="text-white text-xs  text-center">
+                        Your go-to assistant for all company policy questions.
+                    </p>
                 </div>
             </div>
-            <div className="flex-1 p-4 h-[100%] overflow-y-auto">
+
+
+
+            <div className="flex-1 p-4 mt-3 h-[100%] overflow-y-auto">
                 {messages.map((msg, index) => (
                     <ChatMessage
                         key={index}
