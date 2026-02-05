@@ -8,7 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 import ModalComponent from "./ModalComponent";
 
 const ChatMessage = ({ index, message, sender, isUser, timing, sources }) => {
-  
+
   const [open, setOpen] = React.useState(false);
   const handleIconClick = () => setOpen(true);
   return (
@@ -24,8 +24,8 @@ const ChatMessage = ({ index, message, sender, isUser, timing, sources }) => {
 
       <div
         className={`max-w-xs mx-2 sm:max-w-md px-4 py-2 rounded-2xl text-sm shadow ${isUser
-            ? "bg-blue-500 text-white rounded-br-none ml-2"
-            : "bg-white text-gray-900 rounded-bl-none mr-2"
+          ? "bg-blue-500 text-white rounded-br-none ml-2"
+          : "bg-white text-gray-900 rounded-bl-none mr-2"
           }`}
       >
         <p>
@@ -70,4 +70,4 @@ const ChatMessage = ({ index, message, sender, isUser, timing, sources }) => {
   );
 };
 
-export default ChatMessage;
+export default React.memo(ChatMessage);

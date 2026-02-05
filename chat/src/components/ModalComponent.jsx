@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 import CloseIcon from '@mui/icons-material/Close';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import PDFViewer from "../PDFViewer/PDFViwer";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 const style = {
@@ -20,17 +20,27 @@ const style = {
 
 const ModalComponent = ({ open, setOpen, sources, timing }) => {
 
-  const [openPdf, SetOpenPdf] = useState(false)
-  const [pdfDetails, setPdfDetails] = useState({ pageNo: 1, path: "" })
+  console.log('source from modalcomponent', sources);
 
-  const openPdfModel = (path, pageNo) => {
+
+  const [openPdf, SetOpenPdf] = useState(false)
+  const [pdfDetails, setPdfDetails] = useState({ pageNo: 1, path: "", fileName: '' })
+
+  const openPdfModel = (SRC) => {
     try {
-      setPdfDetails({ pageNo: pageNo, path: path })
+      setPdfDetails(SRC)
       SetOpenPdf(true)
     } catch (error) {
       console.error(`Error in OpenPdfModel: ${error}`);
     }
   }
+
+  useEffect(() => {
+    console.log('pdfDetails state updated', pdfDetails);
+
+  }, [pdfDetails])
+
+
 
   return (<>
     {(<Modal
@@ -60,7 +70,7 @@ const ModalComponent = ({ open, setOpen, sources, timing }) => {
                     <p><span className="font-medium">Page No:</span> {src?.page || 'Unknown Page'}</p>
                     <p><span className="font-medium">View PDF:</span> <button
                       onClick={() =>
-                        openPdfModel(src?.file, src?.page)
+                        openPdfModel(src)
                       }
                       type="button"
                       className="text-black z-50 cursor-pointer"
@@ -90,8 +100,9 @@ const ModalComponent = ({ open, setOpen, sources, timing }) => {
         <PDFViewer
           open={openPdf}
           setOpen={SetOpenPdf}
+          pdfDetails={pdfDetails}
           sources={[
-            { file: "/25-02-0268A-360421.pdf", page: pdfDetails.pageNo },
+            { file: `${pdfDetails.path}`, page: pdfDetails.pageNo },
           ]}
           timing={{
             "key search time": "120ms",
@@ -105,4 +116,4 @@ const ModalComponent = ({ open, setOpen, sources, timing }) => {
 
   </>);
 };
-export default ModalComponent;
+export default React.memo(ModalComponent);

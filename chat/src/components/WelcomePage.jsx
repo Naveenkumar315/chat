@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { file } from "../file";
 import { useNavigate } from "react-router-dom";
 const WelcomePage = () => {
   const navigate = useNavigate();
 
   const handleStart = () => {
+    // window.location.href = "http://localhost:4000/ValidateAzureAD";
     navigate("/chat");
   };
+
+  // In your React/JS app
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (event.origin !== import.meta.env.VITE_BACKEND_URL) return;
+
+      if (event.data.type === 'AUTH_SUCCESS') {
+        console.log('Token received:', event.data.token);
+        // Store token and redirect
+        localStorage.setItem('token', event.data.token);
+        navigate('/chat');
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   return (
     <div className="flex items-center justify-center h-screen bg-gradient-to-br from-blue-100 to-purple-200">
@@ -15,7 +33,7 @@ const WelcomePage = () => {
           <img src={file.logo} alt="Logo" className="h-8 w-auto" />
         </div>
         <h1 className="text-3xl font-bold  text-gray-800 mt-4">
-          Welcome to CA Genie <br/> <span className="text-base"> Automated Virtual Assistant</span>
+          Welcome to CA Genie <br /> <span className="text-base"> Automated Virtual Assistant</span>
         </h1>
         <button
           onClick={handleStart}
